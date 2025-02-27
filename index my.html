@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Heart ❤</title>
+  <style>
+    /* Fuente opcional desde Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+    /* ---- Estilos Generales ---- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Pacifico', cursive;
+      height: 100vh;
+      overflow: hidden; /* Para que no aparezcan scrollbars */
+      /* Fondo degradado animado */
+      background: linear-gradient(270deg, #ff9a9e, #fad0c4, #fad0c4);
+      background-size: 600% 600%;
+      animation: gradientBG 10s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Fondo con puntitos de estrellas doradas animadas */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(#ffd700 1px, transparent 1px);
+      background-size: 20px 20px;
+      animation: starsAnimation 20s linear infinite;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    @keyframes starsAnimation {
+      from { transform: translate(0, 0); }
+      to { transform: translate(-20px, -20px); }
+    }
+
+    /* Animación del fondo degradado */
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* ---- Contenedor principal de la pregunta ---- */
+    #popup {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.85);
+      border: 3px solid #ff9a9e;
+      border-radius: 15px;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      transition: transform 0.3s ease;
+    }
+
+    #popup img {
+      width: 100%;
+      display: block;
+      margin: 0 auto 15px;
+      user-select: none;
+    }
+
+    #popup h2 {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .btn-container {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Botón "Sí" */
+    #btnSi {
+      background-color: #a1c45a;
+      color: #fff;
+    }
+    #btnSi:hover {
+      background-color: #8eb547;
+    }
+
+    /* Botón "No" */
+    #btnNo {
+      background-color: #ec6060;
+      color: #fff;
+    }
+    #btnNo:hover {
+      background-color: #d95353;
+    }
+
+    /* ---- Contenedor final (mensaje "Lo sabía") ---- */
+    #final {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.85);
+      border: 3px solid #fad0c4;
+      border-radius: 15px;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      display: none; /* Oculto al inicio */
+    }
+
+    #final h1 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    #final img {
+      width: 100%;
+      display: block;
+      margin: 0 auto;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Contenedor principal con la pregunta -->
+  <div id="popup">
+    <!-- Imagen 1: Animal tierno con la carta (usa tu imagen descargada) -->
+    <img id="animal" src="imagen1.png.png" alt="Tierno animal con carta">
+    <!-- Texto de la pregunta -->
+    <h2>¿Me amas?</h2>
+    <div class="btn-container">
+      <button id="btnSi">Sí</button>
+      <button id="btnNo">No</button>
+    </div>
+  </div>
+
+  <!-- Contenedor final que se muestra al hacer clic en "Sí" -->
+  <div id="final">
+    <h1>¡Lo sabía! 😌</h1>
+    <!-- Imagen 2: Foto de tu novia (usa tu imagen descargada) -->
+    <img id="girlfriend" src="imagen2.jpg.jpeg" alt="Tu novia">
+  </div>
+
+  <script>
+    const btnSi = document.getElementById('btnSi');
+    const btnNo = document.getElementById('btnNo');
+    const popup = document.getElementById('popup');
+    const final = document.getElementById('final');
+
+    // Al hacer clic en "Sí", desaparece la pregunta y aparece el mensaje final
+    btnSi.addEventListener('click', () => {
+      popup.style.display = 'none';
+      final.style.display = 'block';
+    });
+
+    // Al hacer clic en "No", el contenedor (popup) se mueve a una posición aleatoria
+    // y se escala de forma aleatoria
+    btnNo.addEventListener('click', () => {
+      const maxX = window.innerWidth - popup.offsetWidth;
+      const maxY = window.innerHeight - popup.offsetHeight;
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+      const randomScale = 0.5 + Math.random() * 0.7;
+      popup.style.left = randomX + 'px';
+      popup.style.top = randomY + 'px';
+      popup.style.transform = `translate(0, 0) scale(${randomScale})`;
+    });
+  </script>
+
+</body>
+</html>
